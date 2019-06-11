@@ -38,7 +38,7 @@ def minute_job():
     print(select_sql)
     # 这里我们建立一次数据库链接即可
 
-    cnx = connector.connect(host="94.191.126.86", user="root", password="Linlinan123!", database="wuaijinrong",
+    cnx = connector.connect(host="", user="", password="", database="",
                         charset="utf8")
 
     db0 = cnx.cursor()
@@ -91,7 +91,7 @@ def day_job():
     print(tablesql)
 
     # try:
-    cnx = connector.connect(host="94.191.126.86", user="root", password="Linlinan123!", database="wuaijinrong",
+    cnx = connector.connect(host="", user="", password="", database="",
                         charset="utf8")
 
     db0 = cnx.cursor()
