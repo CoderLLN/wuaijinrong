@@ -25,7 +25,7 @@ def write_data_to_mysql(table_name, price, date_time):
     print(insertsql)
 
     # try:
-    cnx = connector.connect(host="94.191.126.86", user="root", password="", database="wuaijinrong",
+    cnx = connector.connect(host="", user="", password="", database="",
                         charset="utf8")
 
     db0 = cnx.cursor()
@@ -92,7 +92,7 @@ def day_job():
     print(tablesql)
 
     # try:
-    cnx = connector.connect(host="94.191.126.86", user="root", password="", database="wuaijinrong",
+    cnx = connector.connect(host="", user="", password="", database="",
                         charset="utf8")
 
     db0 = cnx.cursor()
