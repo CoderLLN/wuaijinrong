@@ -38,6 +38,11 @@ def write_data_to_mysql(table_name, price, date_time):
 
 def fun_timer_1():
 
+    global timer_1
+
+    timer_1 = threading.Timer(1, fun_timer_1)
+    timer_1.start()
+
     ts = time.time()
 
     url = 'https://hq.sinajs.cn/?_=' + str(ts) + '/&list=hf_XAU'
@@ -64,10 +69,7 @@ def fun_timer_1():
     except:
         pass
 
-    global timer_1
 
-    timer_1 = threading.Timer(1, fun_timer_1)
-    timer_1.start()
 
 
 #
