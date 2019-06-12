@@ -18,10 +18,14 @@ def minute_job():
 
     print(time_str_str)
 
-    index_min_str = str(int(time_str_str[0:12]) - 2) + "59"
-    index_max_str = str(int(time_str_str[0:12])) + "00"
+    if time_str_str[11:12] == "00":
+        index_min_str = str(int(time_str_str[0:12]) - 42) + "59"
+        the_time_str = str(int(time_str_str[0:12]) - 41) + "00"
+    else:
+        index_min_str = str(int(time_str_str[0:12]) - 2) + "59"
+        the_time_str = str(int(time_str_str[0:12]) - 1) + "00"
 
-    the_time_str = str(int(time_str_str[0:12]) - 1) + "00"
+    index_max_str = str(int(time_str_str[0:12])) + "00"
 
     print(index_min_str)
     print(the_time_str)
@@ -40,7 +44,7 @@ def minute_job():
         print(select_sql)
         # 这里我们建立一次数据库链接即可
 
-        cnx = connector.connect(host="", user="", password="", database="",
+        cnx = connector.connect(host="94.191.126.86", user="root", password="Linlinan123!", database="wuaijinrong",
                             charset="utf8")
 
         db0 = cnx.cursor()
@@ -52,6 +56,7 @@ def minute_job():
         if result_set:
             price_start = result_set[0][1]
             price_end = result_set[-1][1]
+
             for row in result_set:
                 if row[1] > price_max:
                     price_max = row[1]
@@ -97,7 +102,7 @@ def day_job():
     print(tablesql)
 
     # try:
-    cnx = connector.connect(host="", user="", password="", database="",
+    cnx = connector.connect(host="94.191.126.86", user="root", password="Linlinan123!", database="wuaijinrong",
                         charset="utf8")
 
     db0 = cnx.cursor()
@@ -112,7 +117,7 @@ if __name__=="__main__":
     print("into main function")
 
     # 这里是每天定时的建表格
-    schedule.every().day.at("10:10").do(day_job)
+    schedule.every().day.at("13:20").do(day_job)
     schedule.every().minute.do(minute_job)
 
     while True:
