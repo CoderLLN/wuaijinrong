@@ -32,38 +32,44 @@ def minute_job():
     price_max = 0
     price_min = 10000000
 
-    select_sql = "select * from S{} where DATE_TIME > {} and DATE_TIME < {}".format(tabel_name_str,
-                                                                                   index_min_str, index_max_str)
+    try:
 
-    print(select_sql)
-    # 这里我们建立一次数据库链接即可
+        select_sql = "select * from S{} where DATE_TIME > {} and DATE_TIME < {}".format(tabel_name_str,
+                                                                                       index_min_str, index_max_str)
 
-    cnx = connector.connect(host="", user="", password="", database="",
-                        charset="utf8")
+        print(select_sql)
+        # 这里我们建立一次数据库链接即可
 
-    db0 = cnx.cursor()
+        cnx = connector.connect(host="", user="", password="", database="",
+                            charset="utf8")
 
-    db0.execute(select_sql)
+        db0 = cnx.cursor()
 
-    result_set = db0.fetchall()
+        db0.execute(select_sql)
 
-    if result_set:
-        price_start = result_set[0][1]
-        price_end = result_set[-1][1]
-        for row in result_set:
-            if row[1] > price_max:
-                price_max = row[1]
-            if row[1] < price_min:
-                price_min = row[1]
+        result_set = db0.fetchall()
 
-    print(price_start, price_end, price_max, price_min)
+        if result_set:
+            price_start = result_set[0][1]
+            price_end = result_set[-1][1]
+            for row in result_set:
+                if row[1] > price_max:
+                    price_max = row[1]
+                if row[1] < price_min:
+                    price_min = row[1]
 
-    write_sql = "INSERT INTO `M{}` (`START_PRICE`,`END_PRICE`,`MAX_PRICE`,`MIN_PRICE`, `DATE_TIME`) " \
-                "VALUES ({},{},{},{},{})".format(tabel_name_str, price_start, price_end, price_max, price_min, the_time_str)
+        print(price_start, price_end, price_max, price_min)
 
-    print(write_sql)
+        write_sql = "INSERT INTO `M{}` (`START_PRICE`,`END_PRICE`,`MAX_PRICE`,`MIN_PRICE`, `DATE_TIME`) " \
+                    "VALUES ({},{},{},{},{})".format(tabel_name_str, price_start, price_end, price_max, price_min, the_time_str)
 
-    db0.execute(write_sql)
+        print(write_sql)
+
+        db0.execute(write_sql)
+
+    except:
+
+        pass
 
     cnx.commit()
     db0.close()
@@ -106,7 +112,7 @@ if __name__=="__main__":
     print("into main function")
 
     # 这里是每天定时的建表格
-    schedule.every().day.at("17:35").do(day_job)
+    schedule.every().day.at("10:10").do(day_job)
     schedule.every().minute.do(minute_job)
 
     while True:
