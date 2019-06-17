@@ -17,8 +17,14 @@ def minute_job():
     time_str_str = time_str.replace(" ", "").replace("-", "")
 
     print(time_str_str)
+    print("+"*50)
+    print(time_str_str[10:12])
 
-    if time_str_str[11:12] == "00":
+    if time_str_str[10:12] == "00":
+
+        print("+"*50)
+        print(time_str_str[10:12])
+
         index_min_str = str(int(time_str_str[0:12]) - 42) + "59"
         the_time_str = str(int(time_str_str[0:12]) - 41) + "00"
     else:
@@ -117,7 +123,7 @@ if __name__=="__main__":
     print("into main function")
 
     # 这里是每天定时的建表格
-    schedule.every().day.at("13:20").do(day_job)
+    schedule.every().day.at("15:32").do(day_job)
     schedule.every().minute.do(minute_job)
 
     while True:
